@@ -1,12 +1,16 @@
 import { TaskManager } from './taskManager.js';
+import { StorageManager } from './storageManager.js';
 
 class InterfaceManager {
   constructor() {
     this.taskManager = new TaskManager();
+    this.storageManager = new StorageManager(this.taskManager);
     this.currentView = 'all'; // all, today, week, completed, project
     this.currentProject = 'default';
     this.initializeEventListeners();
     this.initializeProjectsUI();
+    this.storageManager.loadFromStorage();
+    this.displayTasks();
   }
 
   initializeEventListeners() {
@@ -65,6 +69,9 @@ class InterfaceManager {
         this.initializeProjectsUI();
       }
     };
+
+    // Save tasks and projects to localStorage
+    this.storageManager.saveToStorage();
   }
 
   populateProjectDropdown() {
@@ -82,7 +89,7 @@ class InterfaceManager {
         projectSelect.appendChild(option);
       });
     } else {
-      projectGroup.style.display = 'none'; // Hide the project dropdown if there are no projects
+      projectGroup.style.display = 'none'; // Hide the whole thing if there are no projects
     }
   }
 
@@ -120,7 +127,7 @@ class InterfaceManager {
       projectsContainer.appendChild(projectDiv);
     });
 
-    // Re-add the event listener for the "New Project" button because it gets reinitialized
+    // Re-add the event listener for the "New Project" button because it gets somehow reinitialized
     document.getElementById('addProjectBtn').onclick = () => {
       const projectName = prompt('Enter project name:');
       if (projectName && projectName.trim()) {
@@ -164,7 +171,6 @@ class InterfaceManager {
 
   toggleTask(index) {
     this.taskManager.toggleTask(index);
-    console.log(this.taskManager[index]);
     this.displayTasks();
   }
 
