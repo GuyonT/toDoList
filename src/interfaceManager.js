@@ -8,8 +8,8 @@ class InterfaceManager {
     this.currentView = 'all'; // all, today, week, completed, project
     this.currentProject = 'default';
     this.initializeEventListeners();
-    this.initializeProjectsUI();
     this.storageManager.loadFromStorage();
+    this.initializeProjectsUI();
     this.displayTasks();
   }
 
@@ -182,7 +182,15 @@ class InterfaceManager {
 
   displayTasks() {
     const taskList = document.getElementById('taskList');
-    taskList.innerHTML = '';
+    taskList.innerHTML = `
+      <div class="task-header">
+        <span class="task-header-item">Name</span>
+        <span class="task-header-item">Project</span>
+        <span class="task-header-item">Due Date</span>
+        <span class="task-header-item">Priority</span>
+        <span class="task-header-item">Actions</span>
+      </div>
+    `;
 
     let tasksToDisplay;
     if (this.currentView === 'project') {
@@ -201,13 +209,38 @@ class InterfaceManager {
       const toggleSymbol = task.isDone ? '\u2611' : '\u2610';
 
       taskElement.innerHTML = `
-        <h3>${task.name}</h3>
-        <p>${task.description}</p>
-        <p>Due: ${task.dueDate}</p>
-        <p>Priority: ${task.priority}</p>
-        <button class="toggle-task">${toggleSymbol}</button>
-        <button class="delete-task">Delete</button>
+        <span>${task.name}</span>
+        <span>${task.project}</span>
+        <span>${task.dueDate}</span>
+        <span>${task.priority}</span>
+        <span>
+          <button class="show-description">Show Description</button>
+          <dialog class="description-dialog">
+            <p>${task.description}</p>
+            <button class="close-dialog">Close</button>
+          </dialog>
+          <button class="toggle-task">${toggleSymbol}</button>
+          <button class="delete-task">Delete</button>
+        </span>
       `;
+
+      const showDescriptionBtn = taskElement.querySelector('.show-description');
+      const descriptionDialog = taskElement.querySelector(
+        '.description-dialog'
+      );
+
+      showDescriptionBtn.addEventListener('click', () => {
+        const rect = showDescriptionBtn.getBoundingClientRect();
+        descriptionDialog.style.top = `${rect.bottom}px`;
+        descriptionDialog.style.left = `${rect.left}px`;
+        descriptionDialog.showModal();
+      });
+
+      taskElement
+        .querySelector('.close-dialog')
+        .addEventListener('click', () => {
+          descriptionDialog.close();
+        });
 
       taskElement
         .querySelector('.toggle-task')

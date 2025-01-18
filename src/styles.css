@@ -52,6 +52,7 @@ header {
 .logo {
   font-size: 50px;
   font-weight: 600;
+  padding-left: 25px;
 }
 
 .nav {
@@ -212,15 +213,83 @@ button:hover {
   gap: 4px;
 }
 
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 2px solid var(--border-color);
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.task-header-item {
+  flex: 1;
+  text-align: left;
+}
+
 .task {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.task > * {
+  flex: 1;
+  text-align: left;
 }
 
 .task.done {
   text-decoration: line-through;
   opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.task.done button {
+  text-decoration: line-through;
+}
+
+.description-dialog {
+  position: fixed;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  color: var(--text-color);
+}
+
+.description-dialog p {
+  margin-bottom: 10px;
+}
+
+.description-dialog .close-dialog {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.description-dialog .close-dialog:hover {
+  background-color: var(--hover-color);
+}
+
+.task button {
+  padding: 5px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.task button:hover {
+  background-color: var(--hover-color);
 }
