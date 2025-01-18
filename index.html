@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>toDoList</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <header>
+      <div class="logo">toDoList</div>
+      <nav class="nav">
+        <button
+          class="button-add-task"
+          id="addTaskBtn"
+          aria-describedby="add-task-button"
+        >
+          +
+        </button>
+        <button
+          class="button-save"
+          id="saveTasksBtn"
+          aria-describedby="save-tasks-button"
+        >
+          &#x1F5AB;
+        </button>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-describedby="theme-toggle"
+        >
+          &#x263D;
+        </button>
+      </nav>
+    </header>
+    <div class="menu">
+      <div class="menu-item" id="allTasks">allTasks</div>
+      <div class="menu-item" id="todayTasks">todayTasks</div>
+      <div class="menu-item" id="weekTasks">this.weekTasks</div>
+      <div class="menu-item" id="completedTasks">completedTasks</div>
+      <div class="user-projects">
+        <button id="addProjectBtn" class="add-project-btn"></button>
+        <!--add placeholder for button because if not, it doesn't work ?-->
+      </div>
+    </div>
+    <div class="task-list" id="taskList">
+      <div class="task-header">
+        <span class="task-header-item">Name</span>
+        <span class="task-header-item">Project</span>
+        <span class="task-header-item">Due Date</span>
+        <span class="task-header-item">Priority</span>
+        <span class="task-header-item">Actions</span>
+      </div>
+    </div>
+    <div class="modal" id="taskModal">
+      <div class="modal-content">
+        <span id="closeBtn">&times;</span>
+        <h2>addNewTask</h2>
+        <form id="taskForm">
+          <div class="form-group">
+            <label for="name">taskName:</label>
+            <input type="text" id="name" maxlength="50" required />
+            <div class="char-counter">
+              <span id="nameCounter">0</span>/50 characters
+            </div>
+          </div>
+          <div class="form-group" id="projectGroup" style="display: none">
+            <label for="project">taskProject:</label>
+            <select id="project"></select>
+            <!--options are added dinamycally through javascript-->
+          </div>
+          <div class="form-group">
+            <label for="dueDate">taskDueDate:</label>
+            <input type="date" id="dueDate" required />
+          </div>
+          <div class="form-group">
+            <label class="priority-label">taskPriority:</label>
+            <div class="radio-group">
+              <div class="radio-options">
+                <div class="radio-pair">
+                  <input
+                    type="radio"
+                    id="priorityLow"
+                    name="priority"
+                    value="low"
+                  />
+                  <label for="priorityLow">Low</label>
+                </div>
+                <div class="radio-pair">
+                  <input
+                    type="radio"
+                    id="priorityMedium"
+                    name="priority"
+                    value="medium"
+                    checked
+                  />
+                  <label for="priorityMedium">Medium</label>
+                </div>
+                <div class="radio-pair">
+                  <input
+                    type="radio"
+                    id="priorityHigh"
+                    name="priority"
+                    value="high"
+                  />
+                  <label for="priorityHigh">High</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">taskDescription:</label>
+            <textarea rows="3" id="description" maxlength="300"></textarea>
+            <div class="char-counter">
+              <span id="descriptionCounter">0</span>/300 characters
+            </div>
+          </div>
+          <button type="submit" class="form-button">Add task</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
